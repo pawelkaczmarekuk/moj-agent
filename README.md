@@ -14,6 +14,8 @@ Zaimportuj własne repozytorium GitHub jako projekt Next.js. Zachowaj `package-l
 
 Zmienne serwerowe: `OPENROUTER_API_KEY`, `OPENROUTER_MODEL`, `CHAT_PASSWORD`, `SESSION_SECRET`. Żadna nie powinna mieć prefiksu `NEXT_PUBLIC_`.
 
-Przed udostępnieniem skonfiguruj globalny limit POST `/api/session` na firewallu Vercel: 5 prób na 15 minut na IP, blokowanie nadmiarowych prób. Dopiero po sprawdzeniu reguły ustaw `CHAT_LOGIN_RATE_LIMIT_PROTECTED=true` i wykonaj ponowne wdrożenie. Bez tej flagi produkcyjne logowanie pozostaje zablokowane. Szczegóły w AUTH.md.
+Przed udostępnieniem skonfiguruj globalny limit POST `/api/session` na firewallu Vercel: 5 prób na 10 minut na IP, blokowanie nadmiarowych prób. Dopiero po sprawdzeniu reguły ustaw `CHAT_LOGIN_RATE_LIMIT_PROTECTED=true` i wykonaj ponowne wdrożenie. Bez tej flagi produkcyjne logowanie pozostaje zablokowane. Szczegóły w AUTH.md.
 
 Po wdrożeniu sprawdź: ekran hasła w prywatnym oknie; błędne i poprawne hasło; wyjście; HTTP 401 z POST `/api/chat` bez cookie; cookie HttpOnly, SameSite=Strict i Secure; limit firewalla. Pierwszą wiadomość do modelu wysyła właściciel w przeglądarce.
+
+Wdrożenie: https://moj-agent-mocha.vercel.app. Szczegóły limitu WAF i jego regionalnego zasięgu są w AUTH.md.
