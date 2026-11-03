@@ -1,3 +1,4 @@
+import { isSupportedChatMessage } from '../../lib/chat-messages';
 import { authenticated } from '../../lib/auth';
 import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { convertToModelMessages, streamText, validateUIMessages } from 'ai';
@@ -22,7 +23,7 @@ export async function POST(request: Request) {
     if (!last || last.role !== 'user' || !last.parts.some(part => part.type === 'text' && part.text.trim())) {
       return new Response('Wpisz wiadomość przed wysłaniem.', { status: 400 });
     }
-    if (messages.some(message => !['user', 'assistant'].includes(message.role) || message.parts.some(part => part.type !== 'text'))) {
+    if (messages.some(message => !isSupportedChatMessage(message))) {
       return new Response('Nieprawidłowy format rozmowy.', { status: 400 });
     }
   } catch {
